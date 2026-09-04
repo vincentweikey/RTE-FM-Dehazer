@@ -1,0 +1,748 @@
+
+1. ===== torchinfo summary (input flow) =====
+===============================================================================================
+Layer (type:depth-idx)                        Output Shape              Param #
+===============================================================================================
+EfficientUNet                                 [2, 4, 64, 64]            --
+├─Sequential: 1-1                             [2, 512]                  --
+│    └─Linear: 2-1                            [2, 512]                  66,048
+│    └─SiLU: 2-2                              [2, 512]                  --
+│    └─Linear: 2-3                            [2, 512]                  262,656
+├─Identity: 1-2                               [2, 4, 64, 64]            --
+├─ModuleList: 1-3                             --                        --
+│    └─TimestepEmbedSequential: 2-4           [2, 128, 64, 64]          --
+│    │    └─Conv2d: 3-1                       [2, 128, 64, 64]          4,736
+│    └─TimestepEmbedSequential: 2-5           [2, 128, 64, 64]          --
+│    │    └─ResBlock: 3-2                     [2, 128, 64, 64]          --
+│    │    │    └─Sequential: 4-1              [2, 128, 64, 64]          147,840
+│    │    │    └─Sequential: 4-2              [2, 256]                  131,328
+│    │    │    └─Sequential: 4-3              --                        147,840
+│    │    │    └─Identity: 4-4                [2, 128, 64, 64]          --
+│    └─TimestepEmbedSequential: 2-6           [2, 128, 64, 64]          --
+│    │    └─ResBlock: 3-3                     [2, 128, 64, 64]          --
+│    │    │    └─Sequential: 4-5              [2, 128, 64, 64]          147,840
+│    │    │    └─Sequential: 4-6              [2, 256]                  131,328
+│    │    │    └─Sequential: 4-7              --                        147,840
+│    │    │    └─Identity: 4-8                [2, 128, 64, 64]          --
+│    └─TimestepEmbedSequential: 2-7           [2, 128, 32, 32]          --
+│    │    └─Downsample: 3-4                   [2, 128, 32, 32]          --
+│    │    │    └─Conv2d: 4-9                  [2, 128, 32, 32]          147,584
+│    └─TimestepEmbedSequential: 2-8           [2, 256, 32, 32]          --
+│    │    └─ResBlock: 3-5                     [2, 256, 32, 32]          --
+│    │    │    └─Sequential: 4-10             [2, 256, 32, 32]          295,424
+│    │    │    └─Sequential: 4-11             [2, 512]                  262,656
+│    │    │    └─Sequential: 4-12             --                        590,592
+│    │    │    └─Conv2d: 4-13                 [2, 256, 32, 32]          33,024
+│    └─TimestepEmbedSequential: 2-9           [2, 256, 32, 32]          --
+│    │    └─ResBlock: 3-6                     [2, 256, 32, 32]          --
+│    │    │    └─Sequential: 4-14             [2, 256, 32, 32]          590,592
+│    │    │    └─Sequential: 4-15             [2, 512]                  262,656
+│    │    │    └─Sequential: 4-16             --                        590,592
+│    │    │    └─Identity: 4-17               [2, 256, 32, 32]          --
+│    └─TimestepEmbedSequential: 2-10          [2, 256, 16, 16]          --
+│    │    └─Downsample: 3-7                   [2, 256, 16, 16]          --
+│    │    │    └─Conv2d: 4-18                 [2, 256, 16, 16]          590,080
+│    └─TimestepEmbedSequential: 2-11          [2, 512, 16, 16]          --
+│    │    └─ResBlock: 3-8                     [2, 512, 16, 16]          --
+│    │    │    └─Sequential: 4-19             [2, 512, 16, 16]          1,180,672
+│    │    │    └─Sequential: 4-20             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-21             --                        2,360,832
+│    │    │    └─Conv2d: 4-22                 [2, 512, 16, 16]          131,584
+│    └─TimestepEmbedSequential: 2-12          [2, 512, 16, 16]          --
+│    │    └─ResBlock: 3-9                     [2, 512, 16, 16]          --
+│    │    │    └─Sequential: 4-23             [2, 512, 16, 16]          2,360,832
+│    │    │    └─Sequential: 4-24             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-25             --                        2,360,832
+│    │    │    └─Identity: 4-26               [2, 512, 16, 16]          --
+│    └─TimestepEmbedSequential: 2-13          [2, 512, 8, 8]            --
+│    │    └─Downsample: 3-10                  [2, 512, 8, 8]            --
+│    │    │    └─Conv2d: 4-27                 [2, 512, 8, 8]            2,359,808
+│    └─TimestepEmbedSequential: 2-14          [2, 512, 8, 8]            --
+│    │    └─ResBlock: 3-11                    [2, 512, 8, 8]            --
+│    │    │    └─Sequential: 4-28             [2, 512, 8, 8]            2,360,832
+│    │    │    └─Sequential: 4-29             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-30             --                        2,360,832
+│    │    │    └─Identity: 4-31               [2, 512, 8, 8]            --
+│    │    └─SpatialSelfAttention: 3-12        [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-32              [2, 512, 64]              1,024
+│    │    │    └─Conv1d: 4-33                 [2, 768, 64]              393,984
+│    │    │    └─LinearQKVAttention: 4-34     [2, 4, 64, 64]            --
+│    │    │    └─Conv1d: 4-35                 [2, 512, 64]              131,584
+│    └─TimestepEmbedSequential: 2-15          [2, 512, 8, 8]            --
+│    │    └─ResBlock: 3-13                    [2, 512, 8, 8]            --
+│    │    │    └─Sequential: 4-36             [2, 512, 8, 8]            2,360,832
+│    │    │    └─Sequential: 4-37             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-38             --                        2,360,832
+│    │    │    └─Identity: 4-39               [2, 512, 8, 8]            --
+│    │    └─SpatialSelfAttention: 3-14        [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-40              [2, 512, 64]              1,024
+│    │    │    └─Conv1d: 4-41                 [2, 768, 64]              393,984
+│    │    │    └─LinearQKVAttention: 4-42     [2, 4, 64, 64]            --
+│    │    │    └─Conv1d: 4-43                 [2, 512, 64]              131,584
+├─TimestepEmbedSequential: 1-4                [2, 512, 8, 8]            --
+│    └─ResBlock: 2-16                         [2, 512, 8, 8]            --
+│    │    └─Sequential: 3-15                  [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-44              [2, 512, 8, 8]            1,024
+│    │    │    └─SiLU: 4-45                   [2, 512, 8, 8]            --
+│    │    │    └─Conv2d: 4-46                 [2, 512, 8, 8]            2,359,808
+│    │    └─Sequential: 3-16                  [2, 1024]                 --
+│    │    │    └─SiLU: 4-47                   [2, 512]                  --
+│    │    │    └─Linear: 4-48                 [2, 1024]                 525,312
+│    │    └─Sequential: 3-17                  --                        --
+│    │    │    └─GroupNorm: 4-49              [2, 512, 8, 8]            1,024
+│    │    │    └─SiLU: 4-50                   [2, 512, 8, 8]            --
+│    │    │    └─Dropout: 4-51                [2, 512, 8, 8]            --
+│    │    │    └─Conv2d: 4-52                 [2, 512, 8, 8]            2,359,808
+│    │    └─Identity: 3-18                    [2, 512, 8, 8]            --
+│    └─SpatialSelfAttention: 2-17             [2, 512, 8, 8]            --
+│    │    └─GroupNorm: 3-19                   [2, 512, 64]              1,024
+│    │    └─Conv1d: 3-20                      [2, 768, 64]              393,984
+│    │    └─QKVAttention: 3-21                [2, 4, 64, 64]            --
+│    │    └─Conv1d: 3-22                      [2, 512, 64]              131,584
+│    └─ResBlock: 2-18                         [2, 512, 8, 8]            --
+│    │    └─Sequential: 3-23                  [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-53              [2, 512, 8, 8]            1,024
+│    │    │    └─SiLU: 4-54                   [2, 512, 8, 8]            --
+│    │    │    └─Conv2d: 4-55                 [2, 512, 8, 8]            2,359,808
+│    │    └─Sequential: 3-24                  [2, 1024]                 --
+│    │    │    └─SiLU: 4-56                   [2, 512]                  --
+│    │    │    └─Linear: 4-57                 [2, 1024]                 525,312
+│    │    └─Sequential: 3-25                  --                        --
+│    │    │    └─GroupNorm: 4-58              [2, 512, 8, 8]            1,024
+│    │    │    └─SiLU: 4-59                   [2, 512, 8, 8]            --
+│    │    │    └─Dropout: 4-60                [2, 512, 8, 8]            --
+│    │    │    └─Conv2d: 4-61                 [2, 512, 8, 8]            2,359,808
+│    │    └─Identity: 3-26                    [2, 512, 8, 8]            --
+├─ModuleList: 1-5                             --                        --
+│    └─TimestepEmbedSequential: 2-19          [2, 512, 8, 8]            --
+│    │    └─ResBlock: 3-27                    [2, 512, 8, 8]            --
+│    │    │    └─Sequential: 4-62             [2, 512, 8, 8]            4,721,152
+│    │    │    └─Sequential: 4-63             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-64             --                        2,360,832
+│    │    │    └─Conv2d: 4-65                 [2, 512, 8, 8]            524,800
+│    │    └─SpatialSelfAttention: 3-28        [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-66              [2, 512, 64]              1,024
+│    │    │    └─Conv1d: 4-67                 [2, 768, 64]              393,984
+│    │    │    └─LinearQKVAttention: 4-68     [2, 4, 64, 64]            --
+│    │    │    └─Conv1d: 4-69                 [2, 512, 64]              131,584
+│    └─TimestepEmbedSequential: 2-20          [2, 512, 8, 8]            --
+│    │    └─ResBlock: 3-29                    [2, 512, 8, 8]            --
+│    │    │    └─Sequential: 4-70             [2, 512, 8, 8]            4,721,152
+│    │    │    └─Sequential: 4-71             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-72             --                        2,360,832
+│    │    │    └─Conv2d: 4-73                 [2, 512, 8, 8]            524,800
+│    │    └─SpatialSelfAttention: 3-30        [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-74              [2, 512, 64]              1,024
+│    │    │    └─Conv1d: 4-75                 [2, 768, 64]              393,984
+│    │    │    └─LinearQKVAttention: 4-76     [2, 4, 64, 64]            --
+│    │    │    └─Conv1d: 4-77                 [2, 512, 64]              131,584
+│    └─TimestepEmbedSequential: 2-21          [2, 512, 16, 16]          --
+│    │    └─ResBlock: 3-31                    [2, 512, 8, 8]            --
+│    │    │    └─Sequential: 4-78             [2, 512, 8, 8]            4,721,152
+│    │    │    └─Sequential: 4-79             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-80             --                        2,360,832
+│    │    │    └─Conv2d: 4-81                 [2, 512, 8, 8]            524,800
+│    │    └─SpatialSelfAttention: 3-32        [2, 512, 8, 8]            --
+│    │    │    └─GroupNorm: 4-82              [2, 512, 64]              1,024
+│    │    │    └─Conv1d: 4-83                 [2, 768, 64]              393,984
+│    │    │    └─LinearQKVAttention: 4-84     [2, 4, 64, 64]            --
+│    │    │    └─Conv1d: 4-85                 [2, 512, 64]              131,584
+│    │    └─Upsample: 3-33                    [2, 512, 16, 16]          --
+│    │    │    └─Conv2d: 4-86                 [2, 512, 16, 16]          2,359,808
+│    └─TimestepEmbedSequential: 2-22          [2, 512, 16, 16]          --
+│    │    └─ResBlock: 3-34                    [2, 512, 16, 16]          --
+│    │    │    └─Sequential: 4-87             [2, 512, 16, 16]          4,721,152
+│    │    │    └─Sequential: 4-88             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-89             --                        2,360,832
+│    │    │    └─Conv2d: 4-90                 [2, 512, 16, 16]          524,800
+│    └─TimestepEmbedSequential: 2-23          [2, 512, 16, 16]          --
+│    │    └─ResBlock: 3-35                    [2, 512, 16, 16]          --
+│    │    │    └─Sequential: 4-91             [2, 512, 16, 16]          4,721,152
+│    │    │    └─Sequential: 4-92             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-93             --                        2,360,832
+│    │    │    └─Conv2d: 4-94                 [2, 512, 16, 16]          524,800
+│    └─TimestepEmbedSequential: 2-24          [2, 512, 32, 32]          --
+│    │    └─ResBlock: 3-36                    [2, 512, 16, 16]          --
+│    │    │    └─Sequential: 4-95             [2, 512, 16, 16]          3,540,992
+│    │    │    └─Sequential: 4-96             [2, 1024]                 525,312
+│    │    │    └─Sequential: 4-97             --                        2,360,832
+│    │    │    └─Conv2d: 4-98                 [2, 512, 16, 16]          393,728
+│    │    └─Upsample: 3-37                    [2, 512, 32, 32]          --
+│    │    │    └─Conv2d: 4-99                 [2, 512, 32, 32]          2,359,808
+│    └─TimestepEmbedSequential: 2-25          [2, 256, 32, 32]          --
+│    │    └─ResBlock: 3-38                    [2, 256, 32, 32]          --
+│    │    │    └─Sequential: 4-100            [2, 256, 32, 32]          1,771,264
+│    │    │    └─Sequential: 4-101            [2, 512]                  262,656
+│    │    │    └─Sequential: 4-102            --                        590,592
+│    │    │    └─Conv2d: 4-103                [2, 256, 32, 32]          196,864
+│    └─TimestepEmbedSequential: 2-26          [2, 256, 32, 32]          --
+│    │    └─ResBlock: 3-39                    [2, 256, 32, 32]          --
+│    │    │    └─Sequential: 4-104            [2, 256, 32, 32]          1,180,928
+│    │    │    └─Sequential: 4-105            [2, 512]                  262,656
+│    │    │    └─Sequential: 4-106            --                        590,592
+│    │    │    └─Conv2d: 4-107                [2, 256, 32, 32]          131,328
+│    └─TimestepEmbedSequential: 2-27          [2, 256, 64, 64]          --
+│    │    └─ResBlock: 3-40                    [2, 256, 32, 32]          --
+│    │    │    └─Sequential: 4-108            [2, 256, 32, 32]          885,760
+│    │    │    └─Sequential: 4-109            [2, 512]                  262,656
+│    │    │    └─Sequential: 4-110            --                        590,592
+│    │    │    └─Conv2d: 4-111                [2, 256, 32, 32]          98,560
+│    │    └─Upsample: 3-41                    [2, 256, 64, 64]          --
+│    │    │    └─Conv2d: 4-112                [2, 256, 64, 64]          590,080
+│    └─TimestepEmbedSequential: 2-28          [2, 128, 64, 64]          --
+│    │    └─ResBlock: 3-42                    [2, 128, 64, 64]          --
+│    │    │    └─Sequential: 4-113            [2, 128, 64, 64]          443,264
+│    │    │    └─Sequential: 4-114            [2, 256]                  131,328
+│    │    │    └─Sequential: 4-115            --                        147,840
+│    │    │    └─Conv2d: 4-116                [2, 128, 64, 64]          49,280
+│    └─TimestepEmbedSequential: 2-29          [2, 128, 64, 64]          --
+│    │    └─ResBlock: 3-43                    [2, 128, 64, 64]          --
+│    │    │    └─Sequential: 4-117            [2, 128, 64, 64]          295,552
+│    │    │    └─Sequential: 4-118            [2, 256]                  131,328
+│    │    │    └─Sequential: 4-119            --                        147,840
+│    │    │    └─Conv2d: 4-120                [2, 128, 64, 64]          32,896
+│    └─TimestepEmbedSequential: 2-30          [2, 128, 64, 64]          --
+│    │    └─ResBlock: 3-44                    [2, 128, 64, 64]          --
+│    │    │    └─Sequential: 4-121            [2, 128, 64, 64]          295,552
+│    │    │    └─Sequential: 4-122            [2, 256]                  131,328
+│    │    │    └─Sequential: 4-123            --                        147,840
+│    │    │    └─Conv2d: 4-124                [2, 128, 64, 64]          32,896
+├─Sequential: 1-6                             [2, 4, 64, 64]            --
+│    └─GroupNorm: 2-31                        [2, 128, 64, 64]          256
+│    └─SiLU: 2-32                             [2, 128, 64, 64]          --
+│    └─Conv2d: 2-33                           [2, 4, 64, 64]            4,612
+├─Identity: 1-7                               [2, 4, 64, 64]            --
+===============================================================================================
+Total params: 102,110,596
+Trainable params: 102,110,596
+Non-trainable params: 0
+Total mult-adds (G): 67.43
+===============================================================================================
+Input size (MB): 0.13
+Forward/backward pass size (MB): 471.35
+Params size (MB): 408.44
+Estimated Total Size (MB): 879.92
+===============================================================================================
+
+2. ===== module tree (first 3 levels) =====
+time_embed: Sequential
+  0: Linear
+  1: SiLU
+  2: Linear
+pool: Identity
+input_blocks: ModuleList
+  0: TimestepEmbedSequential
+    0: Conv2d
+  1: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Identity
+  2: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Identity
+  3: TimestepEmbedSequential
+    0: Downsample
+      op: Conv2d
+  4: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  5: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Identity
+  6: TimestepEmbedSequential
+    0: Downsample
+      op: Conv2d
+  7: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  8: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Identity
+  9: TimestepEmbedSequential
+    0: Downsample
+      op: Conv2d
+  10: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Identity
+    1: SpatialSelfAttention
+      norm: GroupNorm
+      qkv: Conv1d
+      attention: LinearQKVAttention
+      proj_out: Conv1d
+  11: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Identity
+    1: SpatialSelfAttention
+      norm: GroupNorm
+      qkv: Conv1d
+      attention: LinearQKVAttention
+      proj_out: Conv1d
+middle_block: TimestepEmbedSequential
+  0: ResBlock
+    in_layers: Sequential
+      0: GroupNorm
+      1: SiLU
+      2: Conv2d
+    emb_layers: Sequential
+      0: SiLU
+      1: Linear
+    out_layers: Sequential
+      0: GroupNorm
+      1: SiLU
+      2: Dropout
+      3: Conv2d
+    skip_connection: Identity
+  1: SpatialSelfAttention
+    norm: GroupNorm
+    qkv: Conv1d
+    attention: QKVAttention
+    proj_out: Conv1d
+  2: ResBlock
+    in_layers: Sequential
+      0: GroupNorm
+      1: SiLU
+      2: Conv2d
+    emb_layers: Sequential
+      0: SiLU
+      1: Linear
+    out_layers: Sequential
+      0: GroupNorm
+      1: SiLU
+      2: Dropout
+      3: Conv2d
+    skip_connection: Identity
+output_blocks: ModuleList
+  0: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+    1: SpatialSelfAttention
+      norm: GroupNorm
+      qkv: Conv1d
+      attention: LinearQKVAttention
+      proj_out: Conv1d
+  1: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+    1: SpatialSelfAttention
+      norm: GroupNorm
+      qkv: Conv1d
+      attention: LinearQKVAttention
+      proj_out: Conv1d
+  2: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+    1: SpatialSelfAttention
+      norm: GroupNorm
+      qkv: Conv1d
+      attention: LinearQKVAttention
+      proj_out: Conv1d
+    2: Upsample
+      conv: Conv2d
+  3: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  4: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  5: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+    1: Upsample
+      conv: Conv2d
+  6: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  7: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  8: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+    1: Upsample
+      conv: Conv2d
+  9: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  10: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+  11: TimestepEmbedSequential
+    0: ResBlock
+      in_layers: Sequential
+      emb_layers: Sequential
+      out_layers: Sequential
+      skip_connection: Conv2d
+out: Sequential
+  0: GroupNorm
+  1: SiLU
+  2: Conv2d
+un_pool: Identity
+
+3. ===== parameter table =====
+------------------------------------------------------------------------------------------
+name                                               shape           #params    dtype    device
+------------------------------------------------------------------------------------------
+time_embed.0.weight                                [512, 128]      65,536     torch.float32 cuda:0
+time_embed.0.bias                                  [512]           512        torch.float32 cuda:0
+time_embed.2.weight                                [512, 512]      262,144    torch.float32 cuda:0
+time_embed.2.bias                                  [512]           512        torch.float32 cuda:0
+input_blocks.0.0.weight                            [128, 4, 3, 3]  4,608      torch.float32 cuda:0
+input_blocks.0.0.bias                              [128]           128        torch.float32 cuda:0
+input_blocks.1.0.in_layers.0.weight                [128]           128        torch.float32 cuda:0
+input_blocks.1.0.in_layers.0.bias                  [128]           128        torch.float32 cuda:0
+input_blocks.1.0.in_layers.2.weight                [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+input_blocks.1.0.in_layers.2.bias                  [128]           128        torch.float32 cuda:0
+input_blocks.1.0.emb_layers.1.weight               [256, 512]      131,072    torch.float32 cuda:0
+input_blocks.1.0.emb_layers.1.bias                 [256]           256        torch.float32 cuda:0
+input_blocks.1.0.out_layers.0.weight               [128]           128        torch.float32 cuda:0
+input_blocks.1.0.out_layers.0.bias                 [128]           128        torch.float32 cuda:0
+input_blocks.1.0.out_layers.3.weight               [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+input_blocks.1.0.out_layers.3.bias                 [128]           128        torch.float32 cuda:0
+input_blocks.2.0.in_layers.0.weight                [128]           128        torch.float32 cuda:0
+input_blocks.2.0.in_layers.0.bias                  [128]           128        torch.float32 cuda:0
+input_blocks.2.0.in_layers.2.weight                [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+input_blocks.2.0.in_layers.2.bias                  [128]           128        torch.float32 cuda:0
+input_blocks.2.0.emb_layers.1.weight               [256, 512]      131,072    torch.float32 cuda:0
+input_blocks.2.0.emb_layers.1.bias                 [256]           256        torch.float32 cuda:0
+input_blocks.2.0.out_layers.0.weight               [128]           128        torch.float32 cuda:0
+input_blocks.2.0.out_layers.0.bias                 [128]           128        torch.float32 cuda:0
+input_blocks.2.0.out_layers.3.weight               [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+input_blocks.2.0.out_layers.3.bias                 [128]           128        torch.float32 cuda:0
+input_blocks.3.0.op.weight                         [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+input_blocks.3.0.op.bias                           [128]           128        torch.float32 cuda:0
+input_blocks.4.0.in_layers.0.weight                [128]           128        torch.float32 cuda:0
+input_blocks.4.0.in_layers.0.bias                  [128]           128        torch.float32 cuda:0
+input_blocks.4.0.in_layers.2.weight                [256, 128, 3, 3] 294,912    torch.float32 cuda:0
+input_blocks.4.0.in_layers.2.bias                  [256]           256        torch.float32 cuda:0
+input_blocks.4.0.emb_layers.1.weight               [512, 512]      262,144    torch.float32 cuda:0
+input_blocks.4.0.emb_layers.1.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.4.0.out_layers.0.weight               [256]           256        torch.float32 cuda:0
+input_blocks.4.0.out_layers.0.bias                 [256]           256        torch.float32 cuda:0
+input_blocks.4.0.out_layers.3.weight               [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+input_blocks.4.0.out_layers.3.bias                 [256]           256        torch.float32 cuda:0
+input_blocks.4.0.skip_connection.weight            [256, 128, 1, 1] 32,768     torch.float32 cuda:0
+input_blocks.4.0.skip_connection.bias              [256]           256        torch.float32 cuda:0
+input_blocks.5.0.in_layers.0.weight                [256]           256        torch.float32 cuda:0
+input_blocks.5.0.in_layers.0.bias                  [256]           256        torch.float32 cuda:0
+input_blocks.5.0.in_layers.2.weight                [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+input_blocks.5.0.in_layers.2.bias                  [256]           256        torch.float32 cuda:0
+input_blocks.5.0.emb_layers.1.weight               [512, 512]      262,144    torch.float32 cuda:0
+input_blocks.5.0.emb_layers.1.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.5.0.out_layers.0.weight               [256]           256        torch.float32 cuda:0
+input_blocks.5.0.out_layers.0.bias                 [256]           256        torch.float32 cuda:0
+input_blocks.5.0.out_layers.3.weight               [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+input_blocks.5.0.out_layers.3.bias                 [256]           256        torch.float32 cuda:0
+input_blocks.6.0.op.weight                         [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+input_blocks.6.0.op.bias                           [256]           256        torch.float32 cuda:0
+input_blocks.7.0.in_layers.0.weight                [256]           256        torch.float32 cuda:0
+input_blocks.7.0.in_layers.0.bias                  [256]           256        torch.float32 cuda:0
+input_blocks.7.0.in_layers.2.weight                [512, 256, 3, 3] 1,179,648  torch.float32 cuda:0
+input_blocks.7.0.in_layers.2.bias                  [512]           512        torch.float32 cuda:0
+input_blocks.7.0.emb_layers.1.weight               [1024, 512]     524,288    torch.float32 cuda:0
+input_blocks.7.0.emb_layers.1.bias                 [1024]          1,024      torch.float32 cuda:0
+input_blocks.7.0.out_layers.0.weight               [512]           512        torch.float32 cuda:0
+input_blocks.7.0.out_layers.0.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.7.0.out_layers.3.weight               [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.7.0.out_layers.3.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.7.0.skip_connection.weight            [512, 256, 1, 1] 131,072    torch.float32 cuda:0
+input_blocks.7.0.skip_connection.bias              [512]           512        torch.float32 cuda:0
+input_blocks.8.0.in_layers.0.weight                [512]           512        torch.float32 cuda:0
+input_blocks.8.0.in_layers.0.bias                  [512]           512        torch.float32 cuda:0
+input_blocks.8.0.in_layers.2.weight                [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.8.0.in_layers.2.bias                  [512]           512        torch.float32 cuda:0
+input_blocks.8.0.emb_layers.1.weight               [1024, 512]     524,288    torch.float32 cuda:0
+input_blocks.8.0.emb_layers.1.bias                 [1024]          1,024      torch.float32 cuda:0
+input_blocks.8.0.out_layers.0.weight               [512]           512        torch.float32 cuda:0
+input_blocks.8.0.out_layers.0.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.8.0.out_layers.3.weight               [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.8.0.out_layers.3.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.9.0.op.weight                         [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.9.0.op.bias                           [512]           512        torch.float32 cuda:0
+input_blocks.10.0.in_layers.0.weight               [512]           512        torch.float32 cuda:0
+input_blocks.10.0.in_layers.0.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.10.0.in_layers.2.weight               [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.10.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.10.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+input_blocks.10.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+input_blocks.10.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+input_blocks.10.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+input_blocks.10.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.10.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+input_blocks.10.1.norm.weight                      [512]           512        torch.float32 cuda:0
+input_blocks.10.1.norm.bias                        [512]           512        torch.float32 cuda:0
+input_blocks.10.1.qkv.weight                       [768, 512, 1]   393,216    torch.float32 cuda:0
+input_blocks.10.1.qkv.bias                         [768]           768        torch.float32 cuda:0
+input_blocks.10.1.proj_out.weight                  [512, 256, 1]   131,072    torch.float32 cuda:0
+input_blocks.10.1.proj_out.bias                    [512]           512        torch.float32 cuda:0
+input_blocks.11.0.in_layers.0.weight               [512]           512        torch.float32 cuda:0
+input_blocks.11.0.in_layers.0.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.11.0.in_layers.2.weight               [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.11.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+input_blocks.11.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+input_blocks.11.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+input_blocks.11.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+input_blocks.11.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+input_blocks.11.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+input_blocks.11.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+input_blocks.11.1.norm.weight                      [512]           512        torch.float32 cuda:0
+input_blocks.11.1.norm.bias                        [512]           512        torch.float32 cuda:0
+input_blocks.11.1.qkv.weight                       [768, 512, 1]   393,216    torch.float32 cuda:0
+input_blocks.11.1.qkv.bias                         [768]           768        torch.float32 cuda:0
+input_blocks.11.1.proj_out.weight                  [512, 256, 1]   131,072    torch.float32 cuda:0
+input_blocks.11.1.proj_out.bias                    [512]           512        torch.float32 cuda:0
+middle_block.0.in_layers.0.weight                  [512]           512        torch.float32 cuda:0
+middle_block.0.in_layers.0.bias                    [512]           512        torch.float32 cuda:0
+middle_block.0.in_layers.2.weight                  [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+middle_block.0.in_layers.2.bias                    [512]           512        torch.float32 cuda:0
+middle_block.0.emb_layers.1.weight                 [1024, 512]     524,288    torch.float32 cuda:0
+middle_block.0.emb_layers.1.bias                   [1024]          1,024      torch.float32 cuda:0
+middle_block.0.out_layers.0.weight                 [512]           512        torch.float32 cuda:0
+middle_block.0.out_layers.0.bias                   [512]           512        torch.float32 cuda:0
+middle_block.0.out_layers.3.weight                 [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+middle_block.0.out_layers.3.bias                   [512]           512        torch.float32 cuda:0
+middle_block.1.norm.weight                         [512]           512        torch.float32 cuda:0
+middle_block.1.norm.bias                           [512]           512        torch.float32 cuda:0
+middle_block.1.qkv.weight                          [768, 512, 1]   393,216    torch.float32 cuda:0
+middle_block.1.qkv.bias                            [768]           768        torch.float32 cuda:0
+middle_block.1.proj_out.weight                     [512, 256, 1]   131,072    torch.float32 cuda:0
+middle_block.1.proj_out.bias                       [512]           512        torch.float32 cuda:0
+middle_block.2.in_layers.0.weight                  [512]           512        torch.float32 cuda:0
+middle_block.2.in_layers.0.bias                    [512]           512        torch.float32 cuda:0
+middle_block.2.in_layers.2.weight                  [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+middle_block.2.in_layers.2.bias                    [512]           512        torch.float32 cuda:0
+middle_block.2.emb_layers.1.weight                 [1024, 512]     524,288    torch.float32 cuda:0
+middle_block.2.emb_layers.1.bias                   [1024]          1,024      torch.float32 cuda:0
+middle_block.2.out_layers.0.weight                 [512]           512        torch.float32 cuda:0
+middle_block.2.out_layers.0.bias                   [512]           512        torch.float32 cuda:0
+middle_block.2.out_layers.3.weight                 [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+middle_block.2.out_layers.3.bias                   [512]           512        torch.float32 cuda:0
+output_blocks.0.0.in_layers.0.weight               [1024]          1,024      torch.float32 cuda:0
+output_blocks.0.0.in_layers.0.bias                 [1024]          1,024      torch.float32 cuda:0
+output_blocks.0.0.in_layers.2.weight               [512, 1024, 3, 3] 4,718,592  torch.float32 cuda:0
+output_blocks.0.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.0.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+output_blocks.0.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+output_blocks.0.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+output_blocks.0.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+output_blocks.0.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.0.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+output_blocks.0.0.skip_connection.weight           [512, 1024, 1, 1] 524,288    torch.float32 cuda:0
+output_blocks.0.0.skip_connection.bias             [512]           512        torch.float32 cuda:0
+output_blocks.0.1.norm.weight                      [512]           512        torch.float32 cuda:0
+output_blocks.0.1.norm.bias                        [512]           512        torch.float32 cuda:0
+output_blocks.0.1.qkv.weight                       [768, 512, 1]   393,216    torch.float32 cuda:0
+output_blocks.0.1.qkv.bias                         [768]           768        torch.float32 cuda:0
+output_blocks.0.1.proj_out.weight                  [512, 256, 1]   131,072    torch.float32 cuda:0
+output_blocks.0.1.proj_out.bias                    [512]           512        torch.float32 cuda:0
+output_blocks.1.0.in_layers.0.weight               [1024]          1,024      torch.float32 cuda:0
+output_blocks.1.0.in_layers.0.bias                 [1024]          1,024      torch.float32 cuda:0
+output_blocks.1.0.in_layers.2.weight               [512, 1024, 3, 3] 4,718,592  torch.float32 cuda:0
+output_blocks.1.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.1.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+output_blocks.1.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+output_blocks.1.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+output_blocks.1.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+output_blocks.1.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.1.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+output_blocks.1.0.skip_connection.weight           [512, 1024, 1, 1] 524,288    torch.float32 cuda:0
+output_blocks.1.0.skip_connection.bias             [512]           512        torch.float32 cuda:0
+output_blocks.1.1.norm.weight                      [512]           512        torch.float32 cuda:0
+output_blocks.1.1.norm.bias                        [512]           512        torch.float32 cuda:0
+output_blocks.1.1.qkv.weight                       [768, 512, 1]   393,216    torch.float32 cuda:0
+output_blocks.1.1.qkv.bias                         [768]           768        torch.float32 cuda:0
+output_blocks.1.1.proj_out.weight                  [512, 256, 1]   131,072    torch.float32 cuda:0
+output_blocks.1.1.proj_out.bias                    [512]           512        torch.float32 cuda:0
+output_blocks.2.0.in_layers.0.weight               [1024]          1,024      torch.float32 cuda:0
+output_blocks.2.0.in_layers.0.bias                 [1024]          1,024      torch.float32 cuda:0
+output_blocks.2.0.in_layers.2.weight               [512, 1024, 3, 3] 4,718,592  torch.float32 cuda:0
+output_blocks.2.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.2.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+output_blocks.2.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+output_blocks.2.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+output_blocks.2.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+output_blocks.2.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.2.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+output_blocks.2.0.skip_connection.weight           [512, 1024, 1, 1] 524,288    torch.float32 cuda:0
+output_blocks.2.0.skip_connection.bias             [512]           512        torch.float32 cuda:0
+output_blocks.2.1.norm.weight                      [512]           512        torch.float32 cuda:0
+output_blocks.2.1.norm.bias                        [512]           512        torch.float32 cuda:0
+output_blocks.2.1.qkv.weight                       [768, 512, 1]   393,216    torch.float32 cuda:0
+output_blocks.2.1.qkv.bias                         [768]           768        torch.float32 cuda:0
+output_blocks.2.1.proj_out.weight                  [512, 256, 1]   131,072    torch.float32 cuda:0
+output_blocks.2.1.proj_out.bias                    [512]           512        torch.float32 cuda:0
+output_blocks.2.2.conv.weight                      [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.2.2.conv.bias                        [512]           512        torch.float32 cuda:0
+output_blocks.3.0.in_layers.0.weight               [1024]          1,024      torch.float32 cuda:0
+output_blocks.3.0.in_layers.0.bias                 [1024]          1,024      torch.float32 cuda:0
+output_blocks.3.0.in_layers.2.weight               [512, 1024, 3, 3] 4,718,592  torch.float32 cuda:0
+output_blocks.3.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.3.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+output_blocks.3.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+output_blocks.3.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+output_blocks.3.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+output_blocks.3.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.3.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+output_blocks.3.0.skip_connection.weight           [512, 1024, 1, 1] 524,288    torch.float32 cuda:0
+output_blocks.3.0.skip_connection.bias             [512]           512        torch.float32 cuda:0
+output_blocks.4.0.in_layers.0.weight               [1024]          1,024      torch.float32 cuda:0
+output_blocks.4.0.in_layers.0.bias                 [1024]          1,024      torch.float32 cuda:0
+output_blocks.4.0.in_layers.2.weight               [512, 1024, 3, 3] 4,718,592  torch.float32 cuda:0
+output_blocks.4.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.4.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+output_blocks.4.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+output_blocks.4.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+output_blocks.4.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+output_blocks.4.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.4.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+output_blocks.4.0.skip_connection.weight           [512, 1024, 1, 1] 524,288    torch.float32 cuda:0
+output_blocks.4.0.skip_connection.bias             [512]           512        torch.float32 cuda:0
+output_blocks.5.0.in_layers.0.weight               [768]           768        torch.float32 cuda:0
+output_blocks.5.0.in_layers.0.bias                 [768]           768        torch.float32 cuda:0
+output_blocks.5.0.in_layers.2.weight               [512, 768, 3, 3] 3,538,944  torch.float32 cuda:0
+output_blocks.5.0.in_layers.2.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.5.0.emb_layers.1.weight              [1024, 512]     524,288    torch.float32 cuda:0
+output_blocks.5.0.emb_layers.1.bias                [1024]          1,024      torch.float32 cuda:0
+output_blocks.5.0.out_layers.0.weight              [512]           512        torch.float32 cuda:0
+output_blocks.5.0.out_layers.0.bias                [512]           512        torch.float32 cuda:0
+output_blocks.5.0.out_layers.3.weight              [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.5.0.out_layers.3.bias                [512]           512        torch.float32 cuda:0
+output_blocks.5.0.skip_connection.weight           [512, 768, 1, 1] 393,216    torch.float32 cuda:0
+output_blocks.5.0.skip_connection.bias             [512]           512        torch.float32 cuda:0
+output_blocks.5.1.conv.weight                      [512, 512, 3, 3] 2,359,296  torch.float32 cuda:0
+output_blocks.5.1.conv.bias                        [512]           512        torch.float32 cuda:0
+output_blocks.6.0.in_layers.0.weight               [768]           768        torch.float32 cuda:0
+output_blocks.6.0.in_layers.0.bias                 [768]           768        torch.float32 cuda:0
+output_blocks.6.0.in_layers.2.weight               [256, 768, 3, 3] 1,769,472  torch.float32 cuda:0
+output_blocks.6.0.in_layers.2.bias                 [256]           256        torch.float32 cuda:0
+output_blocks.6.0.emb_layers.1.weight              [512, 512]      262,144    torch.float32 cuda:0
+output_blocks.6.0.emb_layers.1.bias                [512]           512        torch.float32 cuda:0
+output_blocks.6.0.out_layers.0.weight              [256]           256        torch.float32 cuda:0
+output_blocks.6.0.out_layers.0.bias                [256]           256        torch.float32 cuda:0
+output_blocks.6.0.out_layers.3.weight              [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+output_blocks.6.0.out_layers.3.bias                [256]           256        torch.float32 cuda:0
+output_blocks.6.0.skip_connection.weight           [256, 768, 1, 1] 196,608    torch.float32 cuda:0
+output_blocks.6.0.skip_connection.bias             [256]           256        torch.float32 cuda:0
+output_blocks.7.0.in_layers.0.weight               [512]           512        torch.float32 cuda:0
+output_blocks.7.0.in_layers.0.bias                 [512]           512        torch.float32 cuda:0
+output_blocks.7.0.in_layers.2.weight               [256, 512, 3, 3] 1,179,648  torch.float32 cuda:0
+output_blocks.7.0.in_layers.2.bias                 [256]           256        torch.float32 cuda:0
+output_blocks.7.0.emb_layers.1.weight              [512, 512]      262,144    torch.float32 cuda:0
+output_blocks.7.0.emb_layers.1.bias                [512]           512        torch.float32 cuda:0
+output_blocks.7.0.out_layers.0.weight              [256]           256        torch.float32 cuda:0
+output_blocks.7.0.out_layers.0.bias                [256]           256        torch.float32 cuda:0
+output_blocks.7.0.out_layers.3.weight              [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+output_blocks.7.0.out_layers.3.bias                [256]           256        torch.float32 cuda:0
+output_blocks.7.0.skip_connection.weight           [256, 512, 1, 1] 131,072    torch.float32 cuda:0
+output_blocks.7.0.skip_connection.bias             [256]           256        torch.float32 cuda:0
+output_blocks.8.0.in_layers.0.weight               [384]           384        torch.float32 cuda:0
+output_blocks.8.0.in_layers.0.bias                 [384]           384        torch.float32 cuda:0
+output_blocks.8.0.in_layers.2.weight               [256, 384, 3, 3] 884,736    torch.float32 cuda:0
+output_blocks.8.0.in_layers.2.bias                 [256]           256        torch.float32 cuda:0
+output_blocks.8.0.emb_layers.1.weight              [512, 512]      262,144    torch.float32 cuda:0
+output_blocks.8.0.emb_layers.1.bias                [512]           512        torch.float32 cuda:0
+output_blocks.8.0.out_layers.0.weight              [256]           256        torch.float32 cuda:0
+output_blocks.8.0.out_layers.0.bias                [256]           256        torch.float32 cuda:0
+output_blocks.8.0.out_layers.3.weight              [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+output_blocks.8.0.out_layers.3.bias                [256]           256        torch.float32 cuda:0
+output_blocks.8.0.skip_connection.weight           [256, 384, 1, 1] 98,304     torch.float32 cuda:0
+output_blocks.8.0.skip_connection.bias             [256]           256        torch.float32 cuda:0
+output_blocks.8.1.conv.weight                      [256, 256, 3, 3] 589,824    torch.float32 cuda:0
+output_blocks.8.1.conv.bias                        [256]           256        torch.float32 cuda:0
+output_blocks.9.0.in_layers.0.weight               [384]           384        torch.float32 cuda:0
+output_blocks.9.0.in_layers.0.bias                 [384]           384        torch.float32 cuda:0
+output_blocks.9.0.in_layers.2.weight               [128, 384, 3, 3] 442,368    torch.float32 cuda:0
+output_blocks.9.0.in_layers.2.bias                 [128]           128        torch.float32 cuda:0
+output_blocks.9.0.emb_layers.1.weight              [256, 512]      131,072    torch.float32 cuda:0
+output_blocks.9.0.emb_layers.1.bias                [256]           256        torch.float32 cuda:0
+output_blocks.9.0.out_layers.0.weight              [128]           128        torch.float32 cuda:0
+output_blocks.9.0.out_layers.0.bias                [128]           128        torch.float32 cuda:0
+output_blocks.9.0.out_layers.3.weight              [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+output_blocks.9.0.out_layers.3.bias                [128]           128        torch.float32 cuda:0
+output_blocks.9.0.skip_connection.weight           [128, 384, 1, 1] 49,152     torch.float32 cuda:0
+output_blocks.9.0.skip_connection.bias             [128]           128        torch.float32 cuda:0
+output_blocks.10.0.in_layers.0.weight              [256]           256        torch.float32 cuda:0
+output_blocks.10.0.in_layers.0.bias                [256]           256        torch.float32 cuda:0
+output_blocks.10.0.in_layers.2.weight              [128, 256, 3, 3] 294,912    torch.float32 cuda:0
+output_blocks.10.0.in_layers.2.bias                [128]           128        torch.float32 cuda:0
+output_blocks.10.0.emb_layers.1.weight             [256, 512]      131,072    torch.float32 cuda:0
+output_blocks.10.0.emb_layers.1.bias               [256]           256        torch.float32 cuda:0
+output_blocks.10.0.out_layers.0.weight             [128]           128        torch.float32 cuda:0
+output_blocks.10.0.out_layers.0.bias               [128]           128        torch.float32 cuda:0
+output_blocks.10.0.out_layers.3.weight             [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+output_blocks.10.0.out_layers.3.bias               [128]           128        torch.float32 cuda:0
+output_blocks.10.0.skip_connection.weight          [128, 256, 1, 1] 32,768     torch.float32 cuda:0
+output_blocks.10.0.skip_connection.bias            [128]           128        torch.float32 cuda:0
+output_blocks.11.0.in_layers.0.weight              [256]           256        torch.float32 cuda:0
+output_blocks.11.0.in_layers.0.bias                [256]           256        torch.float32 cuda:0
+output_blocks.11.0.in_layers.2.weight              [128, 256, 3, 3] 294,912    torch.float32 cuda:0
+output_blocks.11.0.in_layers.2.bias                [128]           128        torch.float32 cuda:0
+output_blocks.11.0.emb_layers.1.weight             [256, 512]      131,072    torch.float32 cuda:0
+output_blocks.11.0.emb_layers.1.bias               [256]           256        torch.float32 cuda:0
+output_blocks.11.0.out_layers.0.weight             [128]           128        torch.float32 cuda:0
+output_blocks.11.0.out_layers.0.bias               [128]           128        torch.float32 cuda:0
+output_blocks.11.0.out_layers.3.weight             [128, 128, 3, 3] 147,456    torch.float32 cuda:0
+output_blocks.11.0.out_layers.3.bias               [128]           128        torch.float32 cuda:0
+output_blocks.11.0.skip_connection.weight          [128, 256, 1, 1] 32,768     torch.float32 cuda:0
+output_blocks.11.0.skip_connection.bias            [128]           128        torch.float32 cuda:0
+out.0.weight                                       [128]           128        torch.float32 cuda:0
+out.0.bias                                         [128]           128        torch.float32 cuda:0
+out.2.weight                                       [4, 128, 3, 3]  4,608      torch.float32 cuda:0
+out.2.bias                                         [4]             4          torch.float32 cuda:0
+------------------------------------------------------------------------------------------
+Total parameters: 102,110,596  (102.11 M)

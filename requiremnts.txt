@@ -1,0 +1,12 @@
+numpy==1.26.0
+einops
+omegaconf
+matplotlib
+accelerate>=0.22.0
+torch==2.1.0
+torchvision==0.16.0 
+torchaudio==2.1.0
+torchdiffeq>=0.2.3
+diffusers==0.26.3
+huggingface_hub==0.25.0
+xformers
