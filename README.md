@@ -40,7 +40,10 @@ cross-domain generalization.
 
 
 ## 📦 Dataset: P-HAZE
+HuggingFace
 https://huggingface.co/datasets/Weichenfeng/P-HAZE
+Baidu Disc
+链接: https://pan.baidu.com/s/1dBdkB9Y52bSwdEo1Rk92oQ  密码: f7kq
 
 ## 🤗 Pretrained Checkpoints
 
